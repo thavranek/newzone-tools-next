@@ -1,3 +1,4 @@
+// eslint.config.mjs needs to be fully ESM
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -11,13 +12,12 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      '@next/next/no-page-custom-font': 'off',
+      '@next/next/no-img-element': 'off',
+    }
+  }
 ];
 
 export default eslintConfig;
-
-module.exports = {
-  rules: {
-    '@next/next/no-page-custom-font': 'off',
-    '@next/next/no-img-element': 'off',
-  },
-};

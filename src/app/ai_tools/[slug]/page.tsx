@@ -5,11 +5,16 @@ import Image from 'next/image';
 import ToolMetaChips from '@/components/ToolMetaChips';
 import SidebarRecentTools from '@/components/SidebarRecentTools';
 
-type PageProps = {
-  params: { slug: string };
+// Change the type definition to match Next.js expectations
+type Params = {
+  slug: string;
 };
 
-export default async function ToolDetailPage({ params }: PageProps) {
+type Props = {
+  params: Params;
+};
+
+export default async function ToolDetailPage({ params }: Props) {
   const { slug } = params;
   const tool = await fetchAiToolBySlug(slug);
 

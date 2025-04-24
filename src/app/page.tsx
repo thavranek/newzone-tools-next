@@ -37,8 +37,8 @@ export default async function HomePage({ searchParams }: Props) {
     new Set(aiTools.map(tool => tool.acf?.use_case).filter(Boolean))
   ) as string[];
 
-  // Await the searchParams before using
-  const { use_case } = await searchParams;
+  // Fix: Don't await searchParams, it's not a Promise
+  const { use_case } = searchParams;
   const selectedUseCase = typeof use_case === 'string' ? use_case : null;
 
   const filteredTools = selectedUseCase

@@ -1,7 +1,14 @@
 import { fetchAiToolBySlug } from '@/lib/api';
 import Image from 'next/image';
 
-type Props = { params: { slug: string } };
+// Fix the type definition
+type Params = {
+  slug: string;
+};
+
+type Props = {
+  params: Params;
+};
 
 export default async function ToolDetailPage({ params }: Props) {
   const tool = await fetchAiToolBySlug(params.slug);
