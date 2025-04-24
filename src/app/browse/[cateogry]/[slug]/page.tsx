@@ -2,15 +2,12 @@ import { fetchAiToolBySlug } from '@/lib/api';
 import Image from 'next/image';
 
 // Fix the type definition
-type Params = {
-  slug: string;
+type PageProps = {
+  params: { slug: string };
+  searchParams: Record<string, string | string[] | undefined>;
 };
 
-type Props = {
-  params: Params;
-};
-
-export default async function ToolDetailPage({ params }: Props) {
+export default async function ToolDetailPage({ params }: PageProps) {
   const tool = await fetchAiToolBySlug(params.slug);
 
   if (!tool) return <div>Tool not found.</div>;

@@ -3,12 +3,13 @@ import Image from 'next/image';
 import ToolMetaChips from '@/components/ToolMetaChips';
 import SidebarRecentTools from '@/components/SidebarRecentTools';
 
-// Define params directly in the component props
-export default async function ToolDetailPage({
-  params,
-}: {
+// Define the correct type for Next.js App Router pages
+type PageProps = {
   params: { slug: string };
-}) {
+  searchParams: Record<string, string | string[] | undefined>;
+};
+
+export default async function ToolDetailPage({ params }: PageProps) {
   const { slug } = params;
   const tool = await fetchAiToolBySlug(slug);
 
