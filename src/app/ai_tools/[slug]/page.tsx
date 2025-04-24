@@ -1,20 +1,13 @@
-// src/app/ai_tools/[slug]/page.tsx
-
 import { fetchAiToolBySlug } from '@/lib/api';
 import Image from 'next/image';
 import ToolMetaChips from '@/components/ToolMetaChips';
 import SidebarRecentTools from '@/components/SidebarRecentTools';
 
-// Change the type definition to match Next.js expectations
-type Params = {
-  slug: string;
-};
-
-type Props = {
-  params: Params;
-};
-
-export default async function ToolDetailPage({ params }: Props) {
+export default async function ToolDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
   const tool = await fetchAiToolBySlug(slug);
 

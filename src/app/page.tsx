@@ -21,11 +21,12 @@ type AiTool = {
 };
 
 type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Record<string, string | string[] | undefined>;
 };
 
 export default async function HomePage({ searchParams }: Props) {
-  // Next.js 15 requires you to await searchParams
+  // Simple direct access instead of destructuring
+  const useCase = typeof searchParams.use_case === 'string' ? searchParams.use_case : null;
   const resolvedSearchParams = await searchParams;
   
   let aiTools: AiTool[] = [];
@@ -44,9 +45,9 @@ export default async function HomePage({ searchParams }: Props) {
   const { use_case } = resolvedSearchParams;
   const selectedUseCase = typeof use_case === 'string' ? use_case : null;
 
-  const filteredTools = selectedUseCase
-    ? aiTools.filter(tool => tool.acf?.use_case === selectedUseCase)
-    : aiTools;
+  const filteredTools = useCase
+  ? aiTools.filter(tool => tool.acf?.use_case === useCase)
+  : aiTools;
 
   return (
     <main className="max-w-6xl mx-auto p-4">
