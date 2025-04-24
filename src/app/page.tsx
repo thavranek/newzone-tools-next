@@ -25,6 +25,9 @@ type Props = {
 };
 
 export default async function HomePage({ searchParams }: Props) {
+  // Next.js 15 requires you to await searchParams
+  const resolvedSearchParams = await searchParams;
+  
   let aiTools: AiTool[] = [];
   try {
     aiTools = await fetchAiTools();
@@ -37,8 +40,8 @@ export default async function HomePage({ searchParams }: Props) {
     new Set(aiTools.map(tool => tool.acf?.use_case).filter(Boolean))
   ) as string[];
 
-  // Fix: Don't await searchParams, it's not a Promise
-  const { use_case } = searchParams;
+  // Use the resolved search params
+  const { use_case } = resolvedSearchParams;
   const selectedUseCase = typeof use_case === 'string' ? use_case : null;
 
   const filteredTools = selectedUseCase
