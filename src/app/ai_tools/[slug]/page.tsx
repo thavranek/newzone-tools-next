@@ -1,5 +1,7 @@
 import { fetchAiToolBySlug } from '@/lib/api';
 import Image from 'next/image';
+import ToolMetaChips from '@/components/ToolMetaChips';
+import SidebarRecentTools from '@/components/SidebarRecentTools';
 
 type Props = {
   params: { slug: string };
@@ -14,27 +16,26 @@ export default async function ToolDetailPage({ params }: Props) {
   const thumbnail = featuredMedia?.source_url;
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">{tool.title.rendered}</h1>
-      {thumbnail && (
-        <Image
-          src={thumbnail}
-          alt={tool.title.rendered}
-          width={300}
-          height={300}
-          className="rounded mb-4"
+    <main className="max-w-5xl mx-auto p-6 flex flex-col md:flex-row gap-8">
+      <div className="flex-1">
+        {/* Main content */}
+        <h1 className="text-2xl text-white font-bold mb-4">{tool.title.rendered}</h1>
+        {thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={tool.title.rendered}
+            width={700}
+            height={700}
+            className="rounded mb-4"
+          />
+        )}
+        <ToolMetaChips price={tool.acf?.price} useCase={tool.acf?.use_case} />
+        <article
+          className="tool-article-content"
+          dangerouslySetInnerHTML={{ __html: tool.content.rendered }}
         />
-      )}
-      <p className="mb-4 text-gray-600">
-        <strong>Price:</strong> {tool.acf?.price ?? 'N/A'}
-      </p>
-      <p className="text-gray-600 mb-2">
-                <strong>Use Case:</strong> {tool.acf?.use_case ?? 'N/A'}
-              </p>
-              <article
-                className="tool-article-content"
-                dangerouslySetInnerHTML={{ __html: tool.content.rendered }}
-              />
+      </div>
+      <SidebarRecentTools />
     </main>
   );
 }

@@ -25,25 +25,79 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Main text color and font */
 .tool-article-content {
   color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.7;
 }
 
-/* Make sure headings, paragraphs, list items, and links are also white */
+/* Headings */
 .tool-article-content h1,
 .tool-article-content h2,
 .tool-article-content h3,
-.tool-article-content h4,
-.tool-article-content h5,
-.tool-article-content h6,
-.tool-article-content p,
-.tool-article-content li,
-.tool-article-content a {
+.tool-article-content h4 {
   color: #fff;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
-/* Optional: Make links more visible */
-.tool-article-content a {
-  color: #A5A7FF;
-  text-decoration: underline;
+/* Paragraphs */
+.tool-article-content p {
+  margin-bottom: 1.1em;
+}
+
+/* Lists */
+.tool-article-content ol,
+.tool-article-content ul {
+  margin-left: 1.5em;
+  margin-bottom: 1.1em;
+}
+.tool-article-content li {
+  margin-bottom: 0.5em;
+}
+
+/* Buttons (UAGB or WP core) */
+.tool-article-content a.wp-block-button__link,
+.tool-article-content a.uagb-buttons-repeater {
+  display: inline-block;
+  background: #816bff;
+  color: #fff !important;
+  padding: 0.75em 2em;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 1em;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(20,20,20,0.1);
+}
+.tool-article-content a.wp-block-button__link:hover,
+.tool-article-content a.uagb-buttons-repeater:hover {
+  background: #5b3fc7;
+}
+
+/* Optional: Remove default button border */
+.tool-article-content .wp-block-button__link,
+.tool-article-content .uagb-buttons-repeater {
+  border: none;
+}
+
+/* Optional: Responsive images */
+.tool-article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 1.5em 0;
+}
+
+.prose iframe,
+.prose embed,
+.prose object {
+  width: 100% !important;
+  aspect-ratio: 16/9;
+  height: auto !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

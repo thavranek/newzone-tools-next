@@ -32,7 +32,7 @@ export default function RootLayout({
       </head>
       <body style={{ background: '#1a1a1a', minHeight: '100vh', margin: 0 }}>
         <Header />
-        <main style={{ maxWidth: 1024, margin: '0 auto', padding: '2rem 1rem' }}>
+        <main className="min-h-screen mx-auto px-4 py-8">
           {children}
         </main>
       </body>
