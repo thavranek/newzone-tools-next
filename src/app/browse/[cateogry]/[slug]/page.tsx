@@ -1,13 +1,12 @@
 import { fetchAiToolBySlug } from '@/lib/api';
 import Image from 'next/image';
 
-// Fix the type definition
-type PageProps = {
-  params: { slug: string };
-  searchParams: Record<string, string | string[] | undefined>;
-};
-
-export default async function ToolDetailPage({ params }: PageProps) {
+// Keep the type inline with the component
+export default async function ToolDetailPage({
+  params,
+}: {
+  params: { slug: string; cateogry: string };
+}) {
   const tool = await fetchAiToolBySlug(params.slug);
 
   if (!tool) return <div>Tool not found.</div>;

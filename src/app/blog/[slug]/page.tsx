@@ -23,11 +23,11 @@ type WPPost = {
   };
 };
 
-type Props = {
+export default async function BlogPostPage({
+  params,
+}: {
   params: { slug: string };
-};
-
-export default async function BlogPostPage({ params }: Props) {
+}) {
   const post: WPPost | null = await fetchBlogPostBySlug(params.slug);
 
   if (!post) {
