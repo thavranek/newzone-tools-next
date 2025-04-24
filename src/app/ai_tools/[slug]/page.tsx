@@ -20,8 +20,8 @@ export default async function ToolDetailPage({ params }: Props) {
         <Image
           src={thumbnail}
           alt={tool.title.rendered}
-          width={600}
-          height={340}
+          width={300}
+          height={300}
           className="rounded mb-4"
         />
       )}
@@ -31,10 +31,10 @@ export default async function ToolDetailPage({ params }: Props) {
       <p className="text-gray-600 mb-2">
                 <strong>Use Case:</strong> {tool.acf?.use_case ?? 'N/A'}
               </p>
-      <article
-        className="prose"
-        dangerouslySetInnerHTML={{ __html: tool.content.rendered }}
-      />
+              <article
+                className="tool-article-content"
+                dangerouslySetInnerHTML={{ __html: tool.content.rendered }}
+              />
     </main>
   );
 }

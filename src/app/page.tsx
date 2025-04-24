@@ -38,33 +38,44 @@ export default async function HomePage({ searchParams }: Props) {
 
   return (
     <main className="max-w-4xl mx-auto p-4">
-      <div className="flex flex-col items-center mb-8 mt-8">
-        <h1 className="text-3xl font-bold mb-4 text-center">All Audio AI Tools</h1>
-        <div className="flex flex-wrap gap-3 justify-center">
+      <div className="flex flex-col items-center mb-8 mt-2">
+      <h1
+        style={{
+          color: '#FFFFFF',
+          fontFamily: '"Sarabun", Sans-serif',
+          fontSize: '32px',
+          fontWeight: 800,
+          fontStyle: 'italic',
+        }}
+        className="mb-12 text-center"
+      >
+        All Audio AI Tools - In One Place
+      </h1>
+      <div className="flex flex-wrap gap-3 justify-center">
+        <Link
+          href="/"
+          className={`px-4 py-2 rounded border font-bold transition ${
+            !selectedUseCase
+              ? 'bg-[#6251F0] text-white border-[#6251F0]'
+              : 'bg-white text-[#6251F0] border-[#6251F0]'
+          }`}
+        >
+          All
+        </Link>
+        {useCases.map(useCase => (
           <Link
-            href="/"
-            className={`px-4 py-2 rounded border ${
-              !selectedUseCase
-                ? 'bg-blue-500 text-white'
-                : 'bg-white text-blue-700 border-blue-500'
+            key={useCase}
+            href={`/?use_case=${encodeURIComponent(useCase)}`}
+            className={`px-4 py-2 rounded border font-bold transition ${
+              selectedUseCase === useCase
+                ? 'bg-[#6251F0] text-white border-[#6251F0]'
+                : 'bg-white text-[#6251F0] border-[#6251F0]'
             }`}
           >
-            All
+            {useCase}
           </Link>
-          {useCases.map(useCase => (
-            <Link
-              key={useCase}
-              href={`/?use_case=${encodeURIComponent(useCase)}`}
-              className={`px-4 py-2 rounded border ${
-                selectedUseCase === useCase
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-white text-blue-700 border-blue-500'
-              }`}
-            >
-              {useCase}
-            </Link>
-          ))}
-        </div>
+        ))}
+      </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredTools.length === 0 && (

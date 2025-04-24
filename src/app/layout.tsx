@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from 'next/link';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,11 +25,90 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <head>
+        {/* Google Fonts: Sarabun */}
+        <link href="https://fonts.googleapis.com/css?family=Sarabun:800italic&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Changa:400,700&display=swap" rel="stylesheet" />
+      </head>
+      <body style={{ background: '#1a1a1a', minHeight: '100vh', margin: 0 }}>
+        <Header />
+        <main style={{ maxWidth: 1024, margin: '0 auto', padding: '2rem 1rem' }}>
+          {children}
+        </main>
       </body>
     </html>
+  );
+}
+
+function Header() {
+  return (
+    <header style={{
+      background: '#232323',
+      borderBottom: '1px solid #333',
+      height: 80,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      fontFamily: '"Sarabun", Sans-serif',
+      position: 'relative',
+      zIndex: 10,
+    }}>
+      {/* Logo (Left) */}
+      <div style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', height: '100%', paddingLeft: 32 }}>
+        <Link href="/" style={{
+          color: '#fff',
+          fontSize: 28,
+          fontWeight: 800,
+          fontStyle: 'italic',
+          textDecoration: 'none',
+          letterSpacing: '2px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}>
+          <img src="/logo3.svg" alt="Logo" style={{ height: 150 }} />
+        </Link>
+      </div>
+      {/* Navigation (Center) */}
+      <nav style={{
+        position: 'absolute',
+        left: '50%',
+        top: 0,
+        height: '100%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 48,
+      }}>
+        <Link
+          href="/"
+          style={{
+            color: '#fff',
+            fontFamily: '"Changa", sans-serif',
+            fontWeight: '500',
+            fontSize: '18px',
+            textTransform: 'uppercase',
+            letterSpacing: '.1em',
+          }}
+        >
+          AI Tools
+        </Link>
+        <Link
+          href="/blog"
+          style={{
+            color: '#fff',
+            fontFamily: '"Changa", sans-serif',
+            fontWeight: '500',
+            fontSize: '18px',
+            textTransform: 'uppercase',
+            letterSpacing: '.1em',
+          }}
+        >
+          Blog
+        </Link>
+      </nav>
+      {/* Empty right section for spacing (optional) */}
+      <div style={{ flex: '0 0 64px' }}></div>
+    </header>
   );
 }
