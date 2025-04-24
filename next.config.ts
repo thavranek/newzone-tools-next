@@ -1,14 +1,11 @@
-import type { NextConfig } from "next";
+// next.config.ts  (or .js if your project is already ESM)
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
-
-// next.config.js
-module.exports = {
   images: {
     domains: ['newzone.audio'],
   },
-}
+  // …any other options
+};
+
+export default nextConfig;
