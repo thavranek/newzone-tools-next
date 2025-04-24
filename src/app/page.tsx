@@ -1,13 +1,11 @@
-'use client';
-
 import Image from 'next/image';
 import { fetchAiTools } from '@/lib/api';
 import Link from 'next/link';
 import ToolMetaChips from '@/components/ToolMetaChips';
-import { useState, useEffect } from 'react';
 
 type WPFeaturedMedia = {
   source_url: string;
+  // Add any other properties you use from the media object
 };
 
 type AiTool = {
@@ -22,66 +20,34 @@ type AiTool = {
   _embedded?: { 'wp:featuredmedia'?: WPFeaturedMedia[] };
 };
 
-export default function HomePage({ 
-  searchParams 
-}: { 
-  searchParams: { [key: string]: string | string[] | undefined } 
-}) {
-  const [aiTools, setAiTools] = useState<AiTool[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  // Extract the use case from search params directly
+type Props = {
+  searchParams: Record<string, string | string[] | undefined>;
+};
+
+export default async function HomePage({ searchParams }: Props) {
+  // Simple direct access instead of destructuring
   const useCase = typeof searchParams.use_case === 'string' ? searchParams.use_case : null;
+  const resolvedSearchParams = await searchParams;
   
-  // Get all unique use cases from tools
+  let aiTools: AiTool[] = [];
+  try {
+    aiTools = await fetchAiTools();
+  } catch (error) {
+    console.error(error);
+    return <div>Failed to load tools.</div>;
+  }
+
   const useCases = Array.from(
     new Set(aiTools.map(tool => tool.acf?.use_case).filter(Boolean))
   ) as string[];
-  
-  // Filter tools based on selected use case
+
+  // Use the resolved search params
+  const { use_case } = resolvedSearchParams;
+  const selectedUseCase = typeof use_case === 'string' ? use_case : null;
+
   const filteredTools = useCase
-    ? aiTools.filter(tool => tool.acf?.use_case === useCase)
-    : aiTools;
-  
-  // Fetch data on component mount
-  useEffect(() => {
-    async function loadTools() {
-      try {
-        setLoading(true);
-        const tools = await fetchAiTools();
-        setAiTools(tools);
-        setError(null);
-      } catch (err) {
-        console.error('Failed to fetch tools:', err);
-        setError('Failed to load tools. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    }
-    
-    loadTools();
-  }, []);
-  
-  if (loading) {
-    return (
-      <main className="max-w-6xl mx-auto p-4">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-white text-xl">Loading AI tools...</div>
-        </div>
-      </main>
-    );
-  }
-  
-  if (error) {
-    return (
-      <main className="max-w-6xl mx-auto p-4">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-white text-xl">{error}</div>
-        </div>
-      </main>
-    );
-  }
+  ? aiTools.filter(tool => tool.acf?.use_case === useCase)
+  : aiTools;
 
   return (
     <main className="max-w-6xl mx-auto p-4">
@@ -102,7 +68,7 @@ export default function HomePage({
           <Link
             href="/"
             className={`px-4 py-2 rounded border font-bold transition ${
-              !useCase
+              !selectedUseCase
                 ? 'bg-[#6251F0] text-white border-[#6251F0]'
                 : 'bg-white text-[#6251F0] border-[#6251F0]'
             }`}
@@ -114,7 +80,7 @@ export default function HomePage({
               key={useCase}
               href={`/?use_case=${encodeURIComponent(useCase)}`}
               className={`px-4 py-2 rounded border font-bold transition ${
-                searchParams.use_case === useCase
+                selectedUseCase === useCase
                   ? 'bg-[#6251F0] text-white border-[#6251F0]'
                   : 'bg-white text-[#6251F0] border-[#6251F0]'
               }`}

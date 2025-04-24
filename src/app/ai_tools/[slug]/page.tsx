@@ -3,6 +3,7 @@ import Image from 'next/image';
 import ToolMetaChips from '@/components/ToolMetaChips';
 import SidebarRecentTools from '@/components/SidebarRecentTools';
 
+// Define params directly in the component props
 export default async function ToolDetailPage({
   params,
 }: {
