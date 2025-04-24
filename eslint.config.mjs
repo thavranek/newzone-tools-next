@@ -14,3 +14,10 @@ const eslintConfig = [
 ];
 
 export default eslintConfig;
+
+module.exports = {
+  rules: {
+    '@next/next/no-page-custom-font': 'off',
+    '@next/next/no-img-element': 'off',
+  },
+};
