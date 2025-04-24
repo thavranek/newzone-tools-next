@@ -2,12 +2,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchBlogPosts } from '@/lib/api'; // update path as needed
 
+type WPFeaturedMedia = {
+  source_url: string;
+  // Add other properties if needed
+};
+
 type WPPost = {
   id: number;
   slug: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  _embedded?: { 'wp:featuredmedia'?: any[] };
+  _embedded?: { 'wp:featuredmedia'?: WPFeaturedMedia[] };
 };
 
 export default async function BlogPage() {

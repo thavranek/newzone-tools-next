@@ -8,7 +8,8 @@ type Props = {
 };
 
 export default async function ToolDetailPage({ params }: Props) {
-  const tool = await fetchAiToolBySlug(params.slug);
+  const { slug } = await params;
+  const tool = await fetchAiToolBySlug(slug);
 
   if (!tool) return <div>Tool not found.</div>;
 

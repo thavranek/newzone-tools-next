@@ -2,12 +2,25 @@ import { fetchBlogPostBySlug } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
 
+type WPFeaturedMedia = {
+  source_url: string;
+  // add more fields if needed
+};
+
+type WPAuthor = {
+  name: string;
+  // add more fields if needed
+};
+
 type WPPost = {
   id: number;
   title: { rendered: string };
   content: { rendered: string };
   date: string;
-  _embedded?: { 'wp:featuredmedia'?: any[]; author?: any[] };
+  _embedded?: { 
+    'wp:featuredmedia'?: WPFeaturedMedia[]; 
+    author?: WPAuthor[]; 
+  };
 };
 
 type Props = {

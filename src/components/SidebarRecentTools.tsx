@@ -2,11 +2,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchRecentAiTools } from '@/lib/api';
 
+type WPFeaturedMedia = {
+  source_url: string;
+  // Add other properties if needed
+};
+
 type AiTool = {
   id: number;
   slug: string;
   title: { rendered: string };
-  _embedded?: { 'wp:featuredmedia'?: any[] };
+  _embedded?: { 'wp:featuredmedia'?: WPFeaturedMedia[] };
 };
 
 export default async function SidebarRecentTools() {
